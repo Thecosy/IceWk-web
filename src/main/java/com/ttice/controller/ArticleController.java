@@ -1,8 +1,10 @@
 package com.ttice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.Util.MathUtils;
 import com.ttice.entity.Article;
+import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.service.ArticleService;
 import com.ttice.vo.ArticleStatusVO;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -36,30 +40,15 @@ public class ArticleController {
     @ApiOperation(value = "新增文章")
     @ApiImplicitParam(name = "article",value = "文章",required = true)
     @PostMapping("/create")
-    public ArticleStatusVO add(@RequestBody Article article) throws ParseException {
-       //判断是不是新文章
-        if(article.getArticleStatus()==null){
-            System.out.println("新文章");
-            //对新文章进行保存
+    public Integer add(@RequestBody Article article) throws ParseException {
+        //生成随机数注入
+        int number = MathUtils.randomDigitNumber(7);
+        article.setArticleStatus(number);
 
-            //生成随机数注入
-            int number = MathUtils.randomDigitNumber(7);
-            article.setArticleStatus(number);
-            int insert = articleMapper.insert(article);
-
-            Integer articleId = article.getId();
-            Integer ArticleStatus = article.getArticleStatus();
-            ArticleStatusVO articleStatusVO = new ArticleStatusVO();
-            articleStatusVO.setArticleStatus(ArticleStatus);
-            articleStatusVO.setId(articleId);
-            return articleStatusVO;
-        }
-        else{
-            System.out.println("不是新文章");
-            //不是新文章，但是没有id！！！！
-            boolean ReviseArticleById = ReviseArticleById(article);
-            return null;
-        }
+        //saveOrUpdate:要在插入数据库时，如果有某一个主要字段的值重复，则不插入，否则则插入！
+        boolean SAVE = articleService.saveOrUpdate(article);
+        Integer id = article.getId();
+        return id;
     }
 
     @ApiOperation(value = "根据id删除文章")
