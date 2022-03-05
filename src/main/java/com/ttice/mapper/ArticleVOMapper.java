@@ -2,7 +2,7 @@ package com.ttice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ttice.entity.Article;
-import com.ttice.vo.ArticleVO;
+import com.ttice.commin.vo.ArticleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

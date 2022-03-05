@@ -2,22 +2,18 @@ package com.ttice.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ttice.Util.MathUtils;
 import com.ttice.entity.Article;
-import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.mapper.ArticleVOMapper;
 import com.ttice.service.ArticleService;
-import com.ttice.vo.ArticleStatusVO;
-import com.ttice.vo.ArticleVO;
-import com.ttice.vo.PageVO;
+import com.ttice.commin.vo.ArticleVO;
+import com.ttice.commin.vo.PageVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Wrapper;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -35,7 +31,6 @@ public class WebArticleController {
 
     @Autowired
     private ArticleService articleService;
-
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired
@@ -57,8 +52,7 @@ public class WebArticleController {
             @PathVariable("page") Integer page,
             @PathVariable("limit") Integer limit
     ) {
-        PageVO pageVO = this.articleService.VoList(page, limit);
-        return pageVO;
+        return this.articleService.VoList(page, limit);
     }
 
     @ApiOperation(value = "获取最新文章列表")
@@ -75,10 +69,29 @@ public class WebArticleController {
     @GetMapping("/getAllArticleNumber")
     public Integer getAllArticleNumber() {
         QueryWrapper<Article> wrapper = new QueryWrapper<>();
-        //用户名判断
         wrapper.select().eq("status","published");
         return articleVOMapper.selectCount(wrapper);
     }
 
+    @ApiOperation(value = "统计文章浏览量+1")
+    @GetMapping("/articles/{id}/view")
+    @ApiImplicitParam(name = "id",value = "文章id",required = true)
+    public Boolean articlesBrowse(
+        @PathVariable("id") Integer id
+    ) {
+        return articleMapper.articlesBrowse(id);
+    }
+
+    @ApiOperation(value = "文章查询")
+    @GetMapping("/findarticles/{content}")
+    @ApiImplicitParam(name = "content",value = "模糊查询标题",required = true)
+    public List<Article> Findarticles(
+            @PathVariable("content") String content
+    ) {
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        //用户名判断
+        wrapper.like("title",content);
+        return articleMapper.selectList(wrapper);
+    }
 }
 

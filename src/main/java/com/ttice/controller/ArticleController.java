@@ -1,22 +1,18 @@
 package com.ttice.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.Util.MathUtils;
 import com.ttice.entity.Article;
-import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.service.ArticleService;
-import com.ttice.vo.ArticleStatusVO;
-import com.ttice.vo.PageVO;
+import com.ttice.commin.vo.PageVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -37,6 +33,8 @@ public class ArticleController {
     @Autowired
     private ArticleMapper articleMapper;
 
+    //需要登陆认证的接口
+    @RequiresAuthentication
     @ApiOperation(value = "新增文章")
     @ApiImplicitParam(name = "article",value = "文章",required = true)
     @PostMapping("/create")
@@ -46,11 +44,12 @@ public class ArticleController {
         article.setArticleStatus(number);
 
         //saveOrUpdate:要在插入数据库时，如果有某一个主要字段的值重复，则不插入，否则则插入！
-        boolean SAVE = articleService.saveOrUpdate(article);
-        Integer id = article.getId();
-        return id;
+        articleService.saveOrUpdate(article);
+        return article.getId();
     }
 
+    //需要登陆认证的接口
+    @RequiresAuthentication
     @ApiOperation(value = "根据id删除文章")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
     @GetMapping("/DelectArticleById/{id}")
@@ -60,6 +59,8 @@ public class ArticleController {
         return this.articleService.removeById(id);
     }
 
+    //需要登陆认证的接口
+    @RequiresAuthentication
     @ApiOperation(value = "根据id修改文章")
     @ApiImplicitParam(name = "id",value = "文章对象",required = true)
     @PostMapping("/ReviseArticleById/{id}")
@@ -69,6 +70,8 @@ public class ArticleController {
         return this.articleService.updateById(article);
     }
 
+    //需要登陆认证的接口
+    @RequiresAuthentication
     @ApiOperation(value = "根据id获取文章")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
     @GetMapping("/getArticleById/{id}")
@@ -78,6 +81,8 @@ public class ArticleController {
         return this.articleService.getById(id);
     }
 
+    //需要登陆认证的接口
+    @RequiresAuthentication
     @ApiOperation(value = "获取全部文章(分页)")
     @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
     @GetMapping("/getAllArticle/{page}/{limit}")

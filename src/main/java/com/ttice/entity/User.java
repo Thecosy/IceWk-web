@@ -2,6 +2,8 @@ package com.ttice.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,7 +21,7 @@ import lombok.EqualsAndHashCode;
 
     private static final long serialVersionUID=1L;
 
-    private String userId;
+    private Integer userId;
 
     private Integer userAge;
 
@@ -32,5 +34,11 @@ import lombok.EqualsAndHashCode;
     private String token;
 
     private String profile;
+
+    private Integer status;
+
+    private Date created;
+
+  private Date lastLogin;
 
 }

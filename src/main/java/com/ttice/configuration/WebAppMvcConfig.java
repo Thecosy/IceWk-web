@@ -19,13 +19,15 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.format.DateTimeFormatter;
-
 /**
- * @Description TODO
- * @Classname Knife4jWebMvcConfig
- * @Date 2021/3/2 15:27
- * @Created by jianxiapc
+ * <p>
+ *  Knife4jWebMvcConfig
+ * </p>
+ *
+ * @author admin
+ * @since 2022-02-19
  */
+
 @Configuration
 public class WebAppMvcConfig implements WebMvcConfigurer {
 

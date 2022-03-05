@@ -1,13 +1,13 @@
 package com.ttice.controller;
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.Util.JwtUtil;
-import com.ttice.entity.Article;
+import com.ttice.commin.lang.Result;
 import com.ttice.entity.User;
 import com.ttice.mapper.UserMapper;
 import com.ttice.service.UserService;
-import com.ttice.vo.ArticleVO;
-import com.ttice.vo.UserNameVO;
+import com.ttice.commin.vo.UserNameVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -31,39 +31,31 @@ public class UserController {
     private UserMapper userMapper;
 
     @ApiOperation(value = "登陆")
-    @ApiImplicitParam(name = "user",value = "user对象",required = true)
     @GetMapping("/login")//登陆
-    public User login(User user){
+    public Result login(User user) {
         //进行登陆核验操作
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         //用户名判断
         wrapper.eq("USERNAME", user.getUsername());
-        //密码判断
-        wrapper.eq("PASSWORD", user.getPassword());
-        User judjeadmin = userService.getOne(wrapper);
-
-        if (judjeadmin == null) {
-            return null;
+        User userjudje = userService.getOne(wrapper);
+        Assert.notNull(user,"用户名不存在");
+        if(!userjudje.getPassword().equals(user.getPassword())) {
+            return Result.fail(("密码不正确"));
         }
-        else {
-            //添加token
-            String token = JwtUtil.createToken();
-            user.setToken(token);
-
-            //这一步进行成功之后在数据库保存生成的tokenid操作
-            System.out.println("ok");
-            System.out.println(judjeadmin.getUserId());
-            //根据userid获取QueryWrapper对象
-            QueryWrapper<User> wrappertoken = new QueryWrapper<>();
-            wrappertoken.eq("user_id", judjeadmin.getUserId());
-            //实体类
-            User doc = new User();
-            doc.setToken(token);
-            //更新token
-            userService.update(doc,wrappertoken);
-            //返回状态
-            return user;
-        }
+        //添加token
+        String token = JwtUtil.createToken(userjudje.getUserId());
+        user.setToken(token);
+        //根据userid获取QueryWrapper对象
+        QueryWrapper<User> wrappertoken = new QueryWrapper<>();
+        wrappertoken.eq("user_id", userjudje.getUserId());
+        //实体类
+        User doc = new User();
+        doc.setToken(token);
+        //更新token
+        //这一步进行成功之后在数据库保存生成的token操作
+        userService.update(doc,wrappertoken);
+        //返回状态
+        return Result.succ(200,"成功登陆",token);
     }
 
     @ApiOperation(value = "验证Token")
@@ -88,7 +80,6 @@ public class UserController {
             BeanUtils.copyProperties(user1,userNameVO);
             result.add(userNameVO);
         }
-
         return result;
     }
 }

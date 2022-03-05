@@ -1,4 +1,4 @@
-package com.ttice.vo;
+package com.ttice.commin.vo;
 
 import lombok.Data;
 

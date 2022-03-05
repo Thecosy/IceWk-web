@@ -2,15 +2,14 @@ package com.ttice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sun.org.apache.xerces.internal.util.EntityResolverWrapper;
 import com.ttice.entity.Article;
 import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.mapper.UserMapper;
 import com.ttice.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ttice.vo.ArticleVO;
-import com.ttice.vo.PageVO;
+import com.ttice.commin.vo.ArticleVO;
+import com.ttice.commin.vo.PageVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

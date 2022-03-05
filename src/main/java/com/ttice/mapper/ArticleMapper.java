@@ -1,17 +1,10 @@
 package com.ttice.mapper;
 
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.ttice.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ttice.vo.ArticleVO;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
 import org.springframework.stereotype.Repository;
-
-import java.sql.Wrapper;
-import java.util.List;
 
 /**
  * <p>
@@ -23,5 +16,6 @@ import java.util.List;
  */
 @Repository
 public interface ArticleMapper extends BaseMapper<Article> {
-
+    @Select("update article set hits=IFNULL(hits,0)+1 where id = ${id}")
+    Boolean articlesBrowse(@Param("id") Integer id);
 }

@@ -4,6 +4,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * <p>
+ *  前端解决跨域问题配置类
+ * </p>
+ *
+ * @author admin
+ * @since 2022-02-19
+ */
 @Configuration
 public class CrosConfiguration implements WebMvcConfigurer {
 
