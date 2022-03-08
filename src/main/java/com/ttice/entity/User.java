@@ -31,6 +31,8 @@ import lombok.EqualsAndHashCode;
     @TableField("PASSWORD")
     private String password;
 
+    private String role;
+
     private String token;
 
     private String profile;
@@ -39,6 +41,6 @@ import lombok.EqualsAndHashCode;
 
     private Date created;
 
-  private Date lastLogin;
+    private Date lastLogin;
 
 }

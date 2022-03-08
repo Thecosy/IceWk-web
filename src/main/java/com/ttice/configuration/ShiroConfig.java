@@ -1,6 +1,5 @@
 package com.ttice.configuration;
 
-
 import com.ttice.shiro.AccountRealm;
 import com.ttice.shiro.JwtFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;

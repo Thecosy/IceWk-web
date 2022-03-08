@@ -134,6 +134,7 @@
                     <include>**/*.yml</include>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.pfx</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>
@@ -143,6 +144,7 @@
                     <include>**/*.yml</include>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
+                    <include>**/*.pfx</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>

@@ -8,10 +8,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication
 @EnableConfigurationProperties
 @MapperScan("com.ttice.mapper")
-public class SpringshopApplication {
+public class IceWkApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringshopApplication.class, args);
+        SpringApplication.run(IceWkApplication.class, args);
     }
 
 }

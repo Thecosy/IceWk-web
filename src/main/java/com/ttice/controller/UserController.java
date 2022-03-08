@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @io.swagger.annotations.Api(tags = "用户登陆验证接口")
@@ -51,7 +52,8 @@ public class UserController {
         //实体类
         User doc = new User();
         doc.setToken(token);
-        //更新token
+        //new Date()更新登陆时间
+        doc.setLastLogin(new Date());
         //这一步进行成功之后在数据库保存生成的token操作
         userService.update(doc,wrappertoken);
         //返回状态

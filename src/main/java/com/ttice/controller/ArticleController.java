@@ -2,8 +2,12 @@ package com.ttice.controller;
 
 
 import com.ttice.Util.MathUtils;
+import com.ttice.commin.vo.ClassPageVO;
 import com.ttice.entity.Article;
+import com.ttice.entity.ArticleClass;
+import com.ttice.mapper.ArticleClassMapper;
 import com.ttice.mapper.ArticleMapper;
+import com.ttice.service.ArticleClassService;
 import com.ttice.service.ArticleService;
 import com.ttice.commin.vo.PageVO;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,8 +37,13 @@ public class ArticleController {
     @Autowired
     private ArticleMapper articleMapper;
 
-    //需要登陆认证的接口
-    @RequiresAuthentication
+    @Autowired
+    private ArticleClassService articleClassService;
+
+    @Autowired
+    private ArticleClassMapper articleClassMapper;
+
+    @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "新增文章")
     @ApiImplicitParam(name = "article",value = "文章",required = true)
     @PostMapping("/create")
@@ -48,8 +57,7 @@ public class ArticleController {
         return article.getId();
     }
 
-    //需要登陆认证的接口
-    @RequiresAuthentication
+    @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "根据id删除文章")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
     @GetMapping("/DelectArticleById/{id}")
@@ -59,8 +67,7 @@ public class ArticleController {
         return this.articleService.removeById(id);
     }
 
-    //需要登陆认证的接口
-    @RequiresAuthentication
+    @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "根据id修改文章")
     @ApiImplicitParam(name = "id",value = "文章对象",required = true)
     @PostMapping("/ReviseArticleById/{id}")
@@ -70,8 +77,7 @@ public class ArticleController {
         return this.articleService.updateById(article);
     }
 
-    //需要登陆认证的接口
-    @RequiresAuthentication
+    @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "根据id获取文章")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
     @GetMapping("/getArticleById/{id}")
@@ -81,8 +87,6 @@ public class ArticleController {
         return this.articleService.getById(id);
     }
 
-    //需要登陆认证的接口
-    @RequiresAuthentication
     @ApiOperation(value = "获取全部文章(分页)")
     @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
     @GetMapping("/getAllArticle/{page}/{limit}")
@@ -93,5 +97,22 @@ public class ArticleController {
         return this.articleService.VoList(page,limit);
     }
 
+    @ApiOperation(value = "新建文章分类")
+    @ApiImplicitParam(name = "class",value = "文章分类对象",required = true)
+    @PostMapping("/newArticleClass")
+    public int newArticleClass(
+            @RequestBody ArticleClass articleClass
+    ) {
+        return this.articleClassMapper.insert(articleClass);
+    }
+
+    @ApiOperation(value = "获取文章分类列表(分页)")
+    @PostMapping("/allArticleClass/{page}/{limit}")
+    public ClassPageVO allArticleClass(
+            @PathVariable("page") Integer page,
+            @PathVariable("limit") Integer limit
+    ) {
+        return this.articleClassService.GetList(page,limit);
+    }
 }
 

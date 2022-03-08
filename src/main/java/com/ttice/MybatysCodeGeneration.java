@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-public class Main {
+public class MybatysCodeGeneration {
     public static void main(String[] args) {
         //创建generator对象
         AutoGenerator autoGenerator = new AutoGenerator();
