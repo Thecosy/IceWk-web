@@ -1,6 +1,7 @@
 package com.ttice.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.ttice.Util.TencentCOS;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.alibaba.fastjson.JSONObject;
 
 import java.io.File;
 import java.io.IOException;

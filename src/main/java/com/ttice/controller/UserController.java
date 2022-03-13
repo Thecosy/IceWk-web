@@ -4,15 +4,16 @@ import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.Util.JwtUtil;
 import com.ttice.commin.lang.Result;
+import com.ttice.commin.vo.UserNameVO;
 import com.ttice.entity.User;
 import com.ttice.mapper.UserMapper;
 import com.ttice.service.UserService;
-import com.ttice.commin.vo.UserNameVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,8 @@ import java.util.List;
 
 @io.swagger.annotations.Api(tags = "用户登陆验证接口")
 @RestController
+
+@RequestMapping("/User")
 public class UserController {
 
     //数据库账号
@@ -34,6 +37,7 @@ public class UserController {
     @ApiOperation(value = "登陆")
     @GetMapping("/login")//登陆
     public Result login(User user) {
+
         //进行登陆核验操作
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         //用户名判断

@@ -2,15 +2,16 @@ package com.ttice.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ttice.commin.vo.ArticleVO;
+import com.ttice.commin.vo.PageVO;
 import com.ttice.entity.Article;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.mapper.ArticleVOMapper;
 import com.ttice.service.ArticleService;
-import com.ttice.commin.vo.ArticleVO;
-import com.ttice.commin.vo.PageVO;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.List;
  * @author admin
  * @since 2022-02-19
  */
+@CrossOrigin
 @io.swagger.annotations.Api(tags = "Web文章管理接口")
 @RestController
 @RequestMapping("/WebArticle")
@@ -82,16 +84,39 @@ public class WebArticleController {
         return articleMapper.articlesBrowse(id);
     }
 
-    @ApiOperation(value = "文章查询")
+    @ApiOperation(value = "文章查询(全部)")
     @GetMapping("/findarticles/{content}")
     @ApiImplicitParam(name = "content",value = "模糊查询标题",required = true)
     public List<Article> Findarticles(
             @PathVariable("content") String content
     ) {
         QueryWrapper<Article> wrapper = new QueryWrapper<>();
-        //用户名判断
         wrapper.like("title",content);
         return articleMapper.selectList(wrapper);
+    }
+
+    @ApiOperation(value = "文章查询(预览)")
+    @GetMapping("/findarticlesbynum/{content}/{num}")
+    @ApiImplicitParam(name = "content",value = "模糊查询标题",required = true)
+    public List<Article> FindarticlesByNum(
+            @PathVariable("content") String content,
+            @PathVariable("num") String num
+    ) {
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        wrapper.like("title",content)
+                .last("limit "+num);
+        return articleMapper.selectList(wrapper);
+    }
+
+    @ApiOperation(value = "查询文章(分页)")
+    @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
+    @GetMapping("/FindAllArticle/{content}/{page}/{limit}")
+    public PageVO FindAllArticle(
+            @PathVariable("content") String content,
+            @PathVariable("page") Integer page,
+            @PathVariable("limit") Integer limit
+    ) {
+        return this.articleService.FindVoList(page, limit , content);
     }
 }
 

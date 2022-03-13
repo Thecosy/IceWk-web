@@ -35,6 +35,39 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private UserMapper userMapper;
 
     @Override
+    public PageVO FindVoList(Integer page, Integer limit , String content) {
+        List<ArticleVO> result = new ArrayList<>();
+
+        ArticleVO articleVO = null;
+
+        Page<Article> articlePage = new Page<>(page,limit);
+
+        QueryWrapper<Article> wrapper= new QueryWrapper<Article>();
+        wrapper.orderByDesc("id") .like("title",content);
+
+        Page<Article> resultPage = this.articleMapper.selectPage(articlePage, wrapper);
+
+        List<Article> articles = resultPage.getRecords();
+        long total = resultPage.getTotal();
+        for (Article article : articles) {
+
+            //根据作者名称查询对应的头像地址
+            String author = article.getAuthor();
+            User users = userMapper.searchName(author);
+            String profile = users.getProfile();
+            articleVO = new ArticleVO();
+            articleVO.setProfile(profile);
+
+            BeanUtils.copyProperties(article,articleVO);
+            result.add(articleVO);
+        }
+        PageVO pageVO = new PageVO();
+        pageVO.setData(result);
+        pageVO.setTotal(total);
+        return pageVO;
+    }
+
+    @Override
     public PageVO VoList(Integer page, Integer limit) {
         List<ArticleVO> result = new ArrayList<>();
 

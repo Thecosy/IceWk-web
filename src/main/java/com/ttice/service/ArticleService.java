@@ -16,4 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArticleService extends IService<Article> {
     public PageVO VoList(Integer page, Integer limit);
+    public PageVO FindVoList(Integer page, Integer limit ,String content);
 }

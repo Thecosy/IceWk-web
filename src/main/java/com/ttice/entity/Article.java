@@ -36,7 +36,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 所厲栏目id
      */
-      private Integer sortId;
+      private Integer sortClass;
 
       /**
      * 文章标题
