@@ -62,6 +62,7 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<>();
         //此处为需要检验的地方
         filterMap.put("/article/**", "jwt");
+        filterMap.put("/articleClass/**", "jwt");
         //filterMap.put("/User/**", "jwt");
         // 主要通过注解方式校验权限
         chainDefinition.addPathDefinitions(filterMap);
