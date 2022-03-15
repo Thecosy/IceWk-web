@@ -8,6 +8,7 @@ import com.ttice.commin.vo.ClassPageVO;
 import com.ttice.commin.vo.PageVO;
 import com.ttice.entity.Article;
 import com.ttice.entity.ArticleClass;
+import com.ttice.entity.User;
 import com.ttice.mapper.ArticleClassMapper;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.service.ArticleClassService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -49,6 +51,14 @@ public class ArticleClassController {
     public int newArticleClass(
             @RequestBody ArticleClass articleClass
     ) {
+
+        QueryWrapper<ArticleClass> wrapper= new QueryWrapper<ArticleClass>();
+        wrapper.eq("name", articleClass.getName());
+        ArticleClass userjudje = articleClassService.getOne(wrapper);
+        if(userjudje != null){
+            //该分类已存在
+            return 143;
+        }
         return this.articleClassMapper.insert(articleClass);
     }
 

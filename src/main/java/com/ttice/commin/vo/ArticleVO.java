@@ -18,6 +18,6 @@ public class ArticleVO {
     private Integer ownerTag;
     private String status;
     private String thumb;
-
+    private String sortClass;
     private String profile;
 }
