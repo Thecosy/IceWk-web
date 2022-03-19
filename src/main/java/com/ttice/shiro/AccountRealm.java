@@ -7,11 +7,14 @@ import com.ttice.entity.User;
 import com.ttice.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 @Component
 public class AccountRealm extends AuthorizingRealm {
@@ -31,6 +34,7 @@ public class AccountRealm extends AuthorizingRealm {
     //权限校验
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+
         return null;
     }
     //登录认证校验

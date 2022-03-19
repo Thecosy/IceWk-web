@@ -21,10 +21,10 @@ import java.util.List;
  * @since 2022-02-19
  */
 @CrossOrigin
-@io.swagger.annotations.Api(tags = "Web文章评论管理接口")
+@io.swagger.annotations.Api(tags = "后台评论管理接口")
 @RestController
-@RequestMapping("/WebArticleComment")
-public class WebArticleCommentController {
+@RequestMapping("/ArticleComment")
+public class ArticleCommentController {
 
     @Autowired
     ArticleCommentMapper articleCommentMapper;
@@ -47,9 +47,7 @@ public class WebArticleCommentController {
     @GetMapping("/getallArticleComments")
     public List<ArticleComment> getallArticleComments(
     ) {
-        QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
-
-        return null;
+        return articleCommentMapper.selectList(null);
     }
 
     @ApiOperation(value = "增加评论")

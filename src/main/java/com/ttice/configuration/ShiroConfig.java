@@ -1,5 +1,6 @@
 package com.ttice.configuration;
 
+import com.ttice.entity.ArticleComment;
 import com.ttice.shiro.AccountRealm;
 import com.ttice.shiro.JwtFilter;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
@@ -56,28 +57,33 @@ public class ShiroConfig {
         securityManager.setSubjectDAO(subjectDAO);
         return securityManager;
     }
+
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         Map<String, String> filterMap = new LinkedHashMap<>();
         //此处为需要检验的地方
+
         filterMap.put("/article/**", "jwt");
         filterMap.put("/articleClass/**", "jwt");
+        filterMap.put("/ArticleComment/**", "jwt");
+
+        //user主要需要未登陆登陆认证所以放开
         //filterMap.put("/User/**", "jwt");
         // 主要通过注解方式校验权限
         chainDefinition.addPathDefinitions(filterMap);
         return chainDefinition;
     }
+    //shiro拦截器
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager,
                                                          ShiroFilterChainDefinition shiroFilterChainDefinition) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-
+        //拦截
         Map<String, Filter> filters = new HashMap<>();
         filters.put("jwt", jwtFilter);
         shiroFilter.setFilters(filters);
-
         Map<String, String> filterMap = shiroFilterChainDefinition.getFilterChainMap();
 
         shiroFilter.setFilterChainDefinitionMap(filterMap);

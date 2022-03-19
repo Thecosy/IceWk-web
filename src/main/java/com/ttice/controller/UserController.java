@@ -49,13 +49,11 @@ public class UserController {
         }
         //添加token
         String token = JwtUtil.createToken(userjudje.getUserId());
-        user.setToken(token);
         //根据userid获取QueryWrapper对象
         QueryWrapper<User> wrappertoken = new QueryWrapper<>();
         wrappertoken.eq("user_id", userjudje.getUserId());
         //实体类
         User doc = new User();
-        doc.setToken(token);
         //new Date()更新登陆时间
         doc.setLastLogin(new Date());
         //这一步进行成功之后在数据库保存生成的token操作
