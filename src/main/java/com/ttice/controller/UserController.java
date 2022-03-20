@@ -34,6 +34,41 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+//
+//    @ApiOperation(value = "登陆")
+//    @GetMapping("/login")//登陆
+//    public Result register(String account, String password) {
+//        //检查用户名是否被占用
+//        User user = sysDao.selectByAccount(account);
+//        if(user!=null) {
+//            return new ResponseVo<>( -1, "用户名被占用");
+//        }
+//        //添加用户信息
+//        user = new User();
+//        //设置用户名
+//        user.setAccount(account);
+//        //密码加密后再保存
+//        String salt = Md5Util.salt();
+//        String md5Password = Md5Util.md5(password+salt);
+//        user.setPassword(md5Password);
+//        user.setSalt(salt);
+//        //设置注册时间
+//        user.setCreatetime(new Date());
+//        //添加到数据库
+//        int row = sysDao.insertSelective(user);
+//        //返回信息
+//        if(row>0) {
+//            //生成token给用户
+//            String token = JwtUtil.createToken(user);
+//            return new ResponseVo<>(0,"注册成功", token);
+//        }else {
+//            return new ResponseVo<>( -1, "注册失败");
+//        }
+//        //返回状态
+//        return Result.succ(200,"成功登陆",token);
+//        return null;
+//    }
+
     @ApiOperation(value = "登陆")
     @GetMapping("/login")//登陆
     public Result login(User user) {

@@ -2,14 +2,21 @@ package com.ttice.shiro;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.Util.JwtUtil;
+import com.ttice.commin.lang.Result;
 import com.ttice.entity.Article;
+import com.ttice.entity.Role;
 import com.ttice.entity.User;
+import com.ttice.entity.UserRole;
+import com.ttice.mapper.RoleMapper;
+import com.ttice.mapper.UserRoleMapper;
 import com.ttice.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +32,12 @@ public class AccountRealm extends AuthorizingRealm {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
+    @Autowired
+    RoleMapper roleMapper;
+
     //为了让realm支持jwt的凭证校验
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -34,8 +47,40 @@ public class AccountRealm extends AuthorizingRealm {
     //权限校验
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        System.out.println("此处先进行权限检验");
 
-        return null;
+        //拿到，当前用户登陆的对象
+        Subject subject = SecurityUtils.getSubject();
+        Object currentUser = subject.getPrincipal();//拿到user对象
+        User user = new User();
+        BeanUtils.copyProperties(currentUser,user);
+        //获取username
+        String username = user.getUsername();
+        //根据username查取userid
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.select().eq("USERNAME",username);
+        User userids = userService.getOne(wrapper);
+        Integer userId = userids.getUserId();
+        //根据userId查询中间表获取对应权限
+        QueryWrapper<UserRole> UserRolewrapper = new QueryWrapper<>();
+        UserRolewrapper.select().eq("user_id",userId);
+        UserRole userRole = userRoleMapper.selectOne(UserRolewrapper);
+        Integer roleId = userRole.getRoleId();
+        //根据RoleId查询对应权限
+        QueryWrapper<Role> Rolewrapper = new QueryWrapper<>();
+        Rolewrapper.select().eq("id",roleId);
+        Role role = roleMapper.selectOne(Rolewrapper);
+        String sort = role.getSort();
+        //设置用户权限
+        System.out.println(sort);
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        try {
+            info.addStringPermission(sort);
+        } catch (Exception e) {
+            System.out.println("没有此权限");
+            e.printStackTrace();
+        }
+        return info;
     }
     //登录认证校验
     @Override
@@ -54,10 +99,6 @@ public class AccountRealm extends AuthorizingRealm {
 //        }
         AccountProfile profile = new AccountProfile();
         BeanUtils.copyProperties(user,profile);
-
         return new SimpleAuthenticationInfo(profile,jwtToken.getCredentials(),getName());
     }
 }
-
-
-
