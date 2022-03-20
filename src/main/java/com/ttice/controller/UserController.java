@@ -27,12 +27,8 @@ import java.util.List;
 @RequestMapping("/User")
 public class UserController {
 
-    //数据库账号
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserMapper userMapper;
 
 //
 //    @ApiOperation(value = "登陆")
@@ -105,20 +101,5 @@ public class UserController {
         return JwtUtil.checkToken(token);
     }
 
-    @ApiOperation(value = "获取全部用户名称")
-    @GetMapping("/getAllUserName")
-    public List<UserNameVO> getAllUserName(){
-        List<UserNameVO> result = new ArrayList<>();
 
-        QueryWrapper<User> wrapper= new QueryWrapper<User>();
-        wrapper.select("username");
-        UserNameVO userNameVO = null;
-        List<User> users = userMapper.selectList(wrapper);
-        for (User user1 : users) {
-            userNameVO = new UserNameVO();
-            BeanUtils.copyProperties(user1,userNameVO);
-            result.add(userNameVO);
-        }
-        return result;
-    }
 }
