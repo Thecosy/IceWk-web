@@ -42,15 +42,15 @@ public class WebArticleCommentController {
         return articleCommentMapper.selectList(wrapper);
     }
 
-    @ApiOperation(value = "获取全部评论")
-    @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
-    @GetMapping("/getallArticleComments")
-    public List<ArticleComment> getallArticleComments(
-    ) {
-        QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
-
-        return null;
-    }
+//    @ApiOperation(value = "获取全部评论")
+//    @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
+//    @GetMapping("/getallArticleComments")
+//    public List<ArticleComment> getallArticleComments(
+//    ) {
+//        QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
+//
+//        return null;
+//    }
 
     @ApiOperation(value = "增加评论")
     @PostMapping("/addArticleComment")

@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.commin.vo.ArticleVO;
 import com.ttice.commin.vo.PageVO;
 import com.ttice.entity.Article;
+import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
 import com.ttice.mapper.ArticleVOMapper;
+import com.ttice.mapper.UserMapper;
 import com.ttice.service.ArticleService;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +37,8 @@ public class WebArticleController {
     private ArticleMapper articleMapper;
     @Autowired
     private ArticleVOMapper articleVOMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @ApiOperation(value = "根据id获取文章内容")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
@@ -117,6 +119,18 @@ public class WebArticleController {
             @PathVariable("limit") Integer limit
     ) {
         return this.articleService.FindVoList(page, limit , content);
+    }
+
+    @ApiOperation(value = "根据作者name查询对应头像")
+    @ApiImplicitParam(name = "name",value = "作者名称",required = true)
+    @GetMapping("/FindProfileByName/{name}/{page}/{limit}")
+    public String FindProfileByName(
+            @PathVariable("name") String name
+    ) {
+        QueryWrapper<User> Wrapper = new QueryWrapper<>();
+        Wrapper.eq("USERNAME",name);
+        User user = this.userMapper.selectOne(Wrapper);
+        return user.getProfile();
     }
 }
 
