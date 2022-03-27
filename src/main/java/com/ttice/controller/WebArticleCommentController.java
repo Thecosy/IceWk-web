@@ -2,7 +2,6 @@ package com.ttice.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ttice.entity.Article;
 import com.ttice.entity.ArticleComment;
 import com.ttice.mapper.ArticleCommentMapper;
 import io.swagger.annotations.ApiImplicitParam;
@@ -58,6 +57,19 @@ public class WebArticleCommentController {
         QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
         wrapper.eq("article_id",articleId);
         return articleCommentMapper.selectCount(wrapper);
+    }
+
+    @ApiOperation(value = "最新评论")
+    @GetMapping("/getNewArticleComment/{num}")
+    @ApiImplicitParam(name = "num",value = "获取数量",required = true)
+    public List<ArticleComment> getNewArticleComment(
+            @PathVariable("num") Integer num
+    ) {
+        QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("add_time");
+        //使用last方法拼接sql语句
+        wrapper.last("limit "+ num);
+        return articleCommentMapper.selectList(wrapper);
     }
 
 }

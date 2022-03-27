@@ -47,7 +47,9 @@ public class ArticleCommentController {
     @GetMapping("/getallArticleComments")
     public List<ArticleComment> getallArticleComments(
     ) {
-        return articleCommentMapper.selectList(null);
+        QueryWrapper<ArticleComment> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("add_time");
+        return articleCommentMapper.selectList(wrapper);
     }
 
     @ApiOperation(value = "增加评论")
