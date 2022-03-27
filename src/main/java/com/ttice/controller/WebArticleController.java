@@ -123,7 +123,7 @@ public class WebArticleController {
 
     @ApiOperation(value = "根据作者name查询对应头像")
     @ApiImplicitParam(name = "name",value = "作者名称",required = true)
-    @GetMapping("/FindProfileByName/{name}/{page}/{limit}")
+    @GetMapping("/FindProfileByName/{name}")
     public String FindProfileByName(
             @PathVariable("name") String name
     ) {
