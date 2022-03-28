@@ -20,7 +20,7 @@ import java.util.List;
  * @author admin
  * @since 2022-02-19
  */
-@io.swagger.annotations.Api(tags = "Web分类管理接口")
+@io.swagger.annotations.Api(tags = "Web文章分类接口")
 @RestController
 @RequestMapping("/WebarticleClass")
 public class WebArticleClassController {

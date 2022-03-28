@@ -16,5 +16,7 @@ package com.ttice.service;
  */
 @Repository
 public interface ArticleClassService extends IService<ArticleClass> {
-    public ClassPageVO GetList(Integer page, Integer limit);
+
+    ClassPageVO GetList(Integer page, Integer limit);
+
 }

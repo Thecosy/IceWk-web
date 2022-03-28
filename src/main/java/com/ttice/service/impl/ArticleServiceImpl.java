@@ -9,7 +9,7 @@ import com.ttice.mapper.UserMapper;
 import com.ttice.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ttice.commin.vo.ArticleVO;
-import com.ttice.commin.vo.PageVO;
+import com.ttice.commin.vo.ArticlePageVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private UserMapper userMapper;
 
     @Override
-    public PageVO FindVoList(Integer page, Integer limit , String content) {
+    public ArticlePageVO FindVoList(Integer page, Integer limit , String content) {
         List<ArticleVO> result = new ArrayList<>();
 
         ArticleVO articleVO = null;
@@ -61,14 +61,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             BeanUtils.copyProperties(article,articleVO);
             result.add(articleVO);
         }
-        PageVO pageVO = new PageVO();
-        pageVO.setData(result);
-        pageVO.setTotal(total);
-        return pageVO;
+        ArticlePageVO articlePageVO = new ArticlePageVO();
+        articlePageVO.setData(result);
+        articlePageVO.setTotal(total);
+        return articlePageVO;
     }
 
     @Override
-    public PageVO VoList(Integer page, Integer limit) {
+    public ArticlePageVO VoList(Integer page, Integer limit) {
         List<ArticleVO> result = new ArrayList<>();
 
         ArticleVO articleVO = null;
@@ -94,9 +94,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             BeanUtils.copyProperties(article,articleVO);
             result.add(articleVO);
         }
-        PageVO pageVO = new PageVO();
-        pageVO.setData(result);
-        pageVO.setTotal(resultPage.getTotal());
-        return pageVO;
+        ArticlePageVO articlePageVO = new ArticlePageVO();
+        articlePageVO.setData(result);
+        articlePageVO.setTotal(resultPage.getTotal());
+        return articlePageVO;
     }
 }

@@ -5,11 +5,13 @@ spring:
     password: Fuck258!
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #  mybatis-plus打印sql语句
+  # configuration:
+  # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:com/ttice/mapper/xml/*.xml
 server:
   port: 8181
+  #  配置ssh https
 #  ssl:
 #    key-store: classpath:Myssh.pfx
 #    key-store-password: ko674hz8x35

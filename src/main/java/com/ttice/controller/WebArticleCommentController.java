@@ -19,8 +19,7 @@ import java.util.List;
  * @author admin
  * @since 2022-02-19
  */
-@CrossOrigin
-@io.swagger.annotations.Api(tags = "Web文章评论管理接口")
+@io.swagger.annotations.Api(tags = "Web文章评论接口")
 @RestController
 @RequestMapping("/WebArticleComment")
 public class WebArticleCommentController {

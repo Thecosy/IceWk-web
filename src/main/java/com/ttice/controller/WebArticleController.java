@@ -3,7 +3,7 @@ package com.ttice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.commin.vo.ArticleVO;
-import com.ttice.commin.vo.PageVO;
+import com.ttice.commin.vo.ArticlePageVO;
 import com.ttice.entity.Article;
 import com.ttice.entity.User;
 import com.ttice.mapper.ArticleMapper;
@@ -25,8 +25,7 @@ import java.util.List;
  * @author admin
  * @since 2022-02-19
  */
-@CrossOrigin
-@io.swagger.annotations.Api(tags = "Web文章管理接口")
+@io.swagger.annotations.Api(tags = "Web文章接口")
 @RestController
 @RequestMapping("/WebArticle")
 public class WebArticleController {
@@ -52,7 +51,7 @@ public class WebArticleController {
     @ApiOperation(value = "获取全部文章列表(分页)")
     @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
     @GetMapping("/getAllArticle/{page}/{limit}")
-    public PageVO getAllArticle(
+    public ArticlePageVO getAllArticle(
             @PathVariable("page") Integer page,
             @PathVariable("limit") Integer limit
     ) {
@@ -113,7 +112,7 @@ public class WebArticleController {
     @ApiOperation(value = "查询文章(分页)")
     @ApiImplicitParam(name = "articleId",value = "文章id",required = true)
     @GetMapping("/FindAllArticle/{content}/{page}/{limit}")
-    public PageVO FindAllArticle(
+    public ArticlePageVO FindAllArticle(
             @PathVariable("content") String content,
             @PathVariable("page") Integer page,
             @PathVariable("limit") Integer limit

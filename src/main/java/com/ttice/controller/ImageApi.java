@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-@io.swagger.annotations.Api(tags = "工具类Api")
+@io.swagger.annotations.Api(tags = "图片工具类Api")
 @RestController
 @RequestMapping("/ImageApi")
 public class ImageApi {

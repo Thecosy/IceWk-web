@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 @Data
-public class PageVO {
+public class ArticlePageVO {
     private List<ArticleVO> data;
     private Long total;
 }

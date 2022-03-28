@@ -2,7 +2,7 @@ package com.ttice.service;
 
 import com.ttice.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ttice.commin.vo.PageVO;
+import com.ttice.commin.vo.ArticlePageVO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ArticleService extends IService<Article> {
-    public PageVO VoList(Integer page, Integer limit);
-    public PageVO FindVoList(Integer page, Integer limit ,String content);
+
+    ArticlePageVO VoList(Integer page, Integer limit);
+
+    ArticlePageVO FindVoList(Integer page, Integer limit, String content);
 }

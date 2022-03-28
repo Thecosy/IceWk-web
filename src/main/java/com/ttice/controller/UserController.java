@@ -23,7 +23,6 @@ import java.util.List;
 
 @io.swagger.annotations.Api(tags = "用户登陆验证接口")
 @RestController
-
 @RequestMapping("/User")
 public class UserController {
 

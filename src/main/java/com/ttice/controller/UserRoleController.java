@@ -20,7 +20,6 @@ import java.util.List;
 
 @io.swagger.annotations.Api(tags = "用户角色信息接口")
 @RestController
-
 @RequestMapping("/UserRole")
 public class UserRoleController {
 

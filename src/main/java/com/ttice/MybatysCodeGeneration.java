@@ -18,8 +18,8 @@ public class MybatysCodeGeneration {
         dataSourceConfig.setDbType(DbType.MYSQL);
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("123123");
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/iceWk");
+        dataSourceConfig.setPassword("Fuck258!");
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/icewktest");
         autoGenerator.setDataSource(dataSourceConfig);
         //全局配置
         GlobalConfig globalConfig = new GlobalConfig();
@@ -39,7 +39,7 @@ public class MybatysCodeGeneration {
         autoGenerator.setPackageInfo(packageConfig);
         //策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("article");
+        strategyConfig.setInclude("resource_refund_info");
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setEntityLombokModel(true);
