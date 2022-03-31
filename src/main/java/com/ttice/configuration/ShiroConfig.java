@@ -69,6 +69,7 @@ public class ShiroConfig {
         //filterMap.put("/WebArticle/**","perms[admin:all]");
         //需要身份检验的页面§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
         filterMap.put("/article/**", "jwt");
+        filterMap.put("/resource/**", "jwt");
         filterMap.put("/articleClass/**", "jwt");
         filterMap.put("/ArticleComment/**", "jwt");
         //user主要需要未登陆登陆认证所以放开

@@ -3,7 +3,6 @@ package com.ttice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.commin.vo.ResourcePageVO;
-import com.ttice.entity.Article;
 import com.ttice.entity.Resource;
 import com.ttice.mapper.ResourceMapper;
 import com.ttice.service.ResourceService;
@@ -33,8 +32,8 @@ public class WebResourceController {
 
     @ApiOperation(value = "根据id获取资源内容")
     @ApiImplicitParam(name = "id",value = "文章id",required = true)
-    @GetMapping("/getArticleById/{id}")
-    public Resource getArticleById(
+    @GetMapping("/getResourceById/{id}")
+    public Resource getResourceById(
             @PathVariable("id") Integer id
     ) {
         return this.resourceService.getById(id);
@@ -57,5 +56,6 @@ public class WebResourceController {
         wrapper.select().eq("status","published");
         return resourceMapper.selectCount(wrapper);
     }
+
 }
 
