@@ -44,7 +44,7 @@ public class ArticleController {
     private ArticleClassMapper articleClassMapper;
 
     @RequiresAuthentication  //需要登陆认证的接口
-    @ApiOperation(value = "新增文章")
+    @ApiOperation(value = "新增文章(修改)")
     @ApiImplicitParam(name = "article",value = "文章",required = true)
     @PostMapping("/create")
     public Integer add(@RequestBody Article article) throws ParseException {
@@ -72,6 +72,7 @@ public class ArticleController {
         return this.articleService.removeById(id);
     }
 
+    //暂时无用
     @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "根据id修改文章")
     @ApiImplicitParam(name = "id",value = "文章对象",required = true)
