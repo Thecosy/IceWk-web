@@ -2,8 +2,7 @@ package com.ttice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ttice.commin.vo.ClassPageVO;
-import com.ttice.entity.Article;
+import com.ttice.commin.vo.ArticleClassPageVO;
 import com.ttice.entity.ArticleClass;
 import com.ttice.mapper.ArticleClassMapper;
 import com.ttice.service.ArticleClassService;
@@ -29,7 +28,7 @@ public class ArticleClassServiceImpl extends ServiceImpl<ArticleClassMapper,Arti
     private ArticleClassMapper articleClassMapper;
 
     @Override
-    public ClassPageVO GetList(Integer page, Integer limit) {
+    public ArticleClassPageVO GetList(Integer page, Integer limit) {
         Page<ArticleClass> ArticleClassPage = new Page<>(page,limit);
 
         QueryWrapper<ArticleClass> wrapper= new QueryWrapper<ArticleClass>();
@@ -38,7 +37,7 @@ public class ArticleClassServiceImpl extends ServiceImpl<ArticleClassMapper,Arti
         Page<ArticleClass> resultPage = this.articleClassMapper.selectPage(ArticleClassPage, wrapper);
         List<ArticleClass> records = resultPage.getRecords();
         long total = resultPage.getTotal();
-        ClassPageVO classPageVO = new ClassPageVO();
+        ArticleClassPageVO classPageVO = new ArticleClassPageVO();
         classPageVO.setData(records);
         classPageVO.setTotal(total);
         return classPageVO;

@@ -3,7 +3,7 @@ package com.ttice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.commin.vo.ClassNameVO;
-import com.ttice.commin.vo.ClassPageVO;
+import com.ttice.commin.vo.ArticleClassPageVO;
 import com.ttice.entity.ArticleClass;
 import com.ttice.mapper.ArticleClassMapper;
 import com.ttice.service.ArticleClassService;
@@ -57,7 +57,7 @@ public class ArticleClassController {
     @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "获取文章分类列表(分页)")
     @PostMapping("/allArticleClass/{page}/{limit}")
-    public ClassPageVO allArticleClass(
+    public ArticleClassPageVO allArticleClass(
             @PathVariable("page") Integer page,
             @PathVariable("limit") Integer limit
     ) {

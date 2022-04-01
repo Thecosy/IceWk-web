@@ -1,7 +1,6 @@
 package com.ttice.service;
 
-        import com.ttice.commin.vo.ClassPageVO;
-        import com.ttice.entity.Article;
+        import com.ttice.commin.vo.ArticleClassPageVO;
         import com.baomidou.mybatisplus.extension.service.IService;
         import com.ttice.entity.ArticleClass;
         import org.springframework.stereotype.Repository;
@@ -17,6 +16,6 @@ package com.ttice.service;
 @Repository
 public interface ArticleClassService extends IService<ArticleClass> {
 
-    ClassPageVO GetList(Integer page, Integer limit);
+    ArticleClassPageVO GetList(Integer page, Integer limit);
 
 }

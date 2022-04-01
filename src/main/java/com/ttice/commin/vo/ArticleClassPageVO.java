@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ClassPageVO {
+public class ArticleClassPageVO {
     private List<ArticleClass> data;
     private Long total;
 }
