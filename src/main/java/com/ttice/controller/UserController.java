@@ -73,6 +73,9 @@ public class UserController {
         //用户名判断
         wrapper.eq("USERNAME", user.getUsername());
         User userjudje = userService.getOne(wrapper);
+        if (userjudje == null){
+            return Result.fail(("用户名不存在"));
+        }
         Assert.notNull(user,"用户名不存在");
         if(!userjudje.getPassword().equals(user.getPassword())) {
             return Result.fail(("密码不正确"));

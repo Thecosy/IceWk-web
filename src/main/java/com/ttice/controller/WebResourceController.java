@@ -66,12 +66,12 @@ public class WebResourceController {
 
     @ApiOperation(value = "获取最新资源列表")
     @ApiImplicitParam(name = "articleNum",value = "文章数量",required = true)
-    @GetMapping("/getNewArticle/{articleNum}")
-    public List<ResourceVO> getNewAllArticle(
-            @PathVariable("articleNum") Integer articleNum
+    @GetMapping("/getNewResource/{resourceNum}")
+    public List<ResourceVO> getNewResource(
+            @PathVariable("resourceNum") Integer resourceNum
     ) {
 
-        return resourceVOMapper.selectAll(articleNum);
+        return resourceVOMapper.selectAll(resourceNum);
     }
 
 }
