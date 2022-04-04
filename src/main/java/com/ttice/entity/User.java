@@ -25,6 +25,8 @@ import lombok.EqualsAndHashCode;
 
     private Integer userAge;
 
+    private String name;
+
     @TableField("USERNAME")
     private String username;
 

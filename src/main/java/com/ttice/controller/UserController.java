@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @io.swagger.annotations.Api(tags = "用户登陆验证接口")
 @RestController
@@ -92,7 +90,12 @@ public class UserController {
         //这一步进行成功之后在数据库保存生成的token操作
         userService.update(doc,wrappertoken);
         //返回状态
-        return Result.succ(200,"成功登陆",token);
+        HashMap<String, String> myMap = new HashMap<>();
+        myMap.put("token", token);
+        myMap.put("name", userjudje.getName());
+        myMap.put("profile", userjudje.getProfile());
+        return Result.succ(200,"成功登陆",myMap);
+//        return Result.succ(200,"成功登陆",token);
     }
 
     @ApiOperation(value = "验证Token")
