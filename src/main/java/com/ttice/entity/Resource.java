@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 所厲栏目Class
      */
-      private Integer sortClass;
+      private String sortClass;
 
       /**
      * 文章标题

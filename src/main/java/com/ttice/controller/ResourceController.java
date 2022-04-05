@@ -7,6 +7,8 @@ import com.ttice.commin.vo.ResourcePageVO;
 import com.ttice.entity.Article;
 import com.ttice.entity.ArticleClass;
 import com.ttice.entity.Resource;
+import com.ttice.entity.ResourceClass;
+import com.ttice.mapper.ResourceClassMapper;
 import com.ttice.mapper.ResourceMapper;
 import com.ttice.service.ResourceService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -34,7 +36,7 @@ public class ResourceController {
     private ResourceService resourceService;
 
     @Autowired
-    private ResourceMapper resourceMapper;
+    private ResourceClassMapper resourceClassMapper;
 
     @RequiresAuthentication  //需要登陆认证的接口
     @ApiOperation(value = "新增资源(修改)")
@@ -45,11 +47,11 @@ public class ResourceController {
         int number = MathUtils.randomDigitNumber(7);
         resource.setArticleStatus(number);
         //查询分类名称对应的id值
-//        QueryWrapper<ArticleClass> wrapper= new QueryWrapper<ArticleClass>();
-//        wrapper.eq("name", article.getSortClass());
-//        ArticleClass articleClass = articleClassMapper.selectOne(wrapper);
+        QueryWrapper<ResourceClass> wrapper= new QueryWrapper<ResourceClass>();
+        wrapper.eq("name", resource.getSortClass());
+        ResourceClass resourceClass = resourceClassMapper.selectOne(wrapper);
 
-//        article.setSortClass(articleClass.getId().toString());
+        resource.setSortClass(resourceClass.getId().toString());
         //saveOrUpdate:要在插入数据库时，如果有某一个主要字段的值重复，则不插入，否则则插入！
         resourceService.saveOrUpdate(resource);
         return resource.getId();

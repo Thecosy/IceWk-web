@@ -130,7 +130,7 @@ import lombok.EqualsAndHashCode;
       /**
        * 是否评论
        */
-      private String comment_disabled;
+      private String commentDisabled;
       /**
      * 添加时间
      */

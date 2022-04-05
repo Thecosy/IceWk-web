@@ -90,5 +90,18 @@ public class ArticleClassController {
         }
         return result;
     }
+
+    @RequiresAuthentication  //需要登陆认证的接口
+    @ApiOperation(value = "根据id值查询对应的分类名称")
+    @GetMapping("/getClassNameById/{id}")
+    public String getClassNameById(
+            @PathVariable("id") Integer id
+    ){
+        QueryWrapper<ArticleClass> wrapper= new QueryWrapper<ArticleClass>();
+        wrapper.eq("id",id);
+
+        ArticleClass articleClass = articleClassMapper.selectOne(wrapper);
+        return articleClass.getName();
+    }
 }
 

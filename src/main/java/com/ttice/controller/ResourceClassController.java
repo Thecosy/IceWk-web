@@ -2,15 +2,21 @@ package com.ttice.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ttice.commin.vo.ClassNameVO;
 import com.ttice.commin.vo.ResourceClassPageVO;
+import com.ttice.entity.ArticleClass;
 import com.ttice.entity.ResourceClass;
 import com.ttice.mapper.ResourceClassMapper;
 import com.ttice.service.ResourceClassService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -67,23 +73,36 @@ public class ResourceClassController {
     ){
         return this.resourceClassMapper.deleteById(id);
     }
-//
-//    @RequiresAuthentication  //需要登陆认证的接口
-//    @ApiOperation(value = "获取全部分类列表")
-//    @GetMapping("/getAllClassName")
-//    public List<ClassNameVO> getAllClassName(){
-//        List<ClassNameVO> result = new ArrayList<>();
-//
-//        QueryWrapper<ArticleClass> wrapper= new QueryWrapper<ArticleClass>();
-//        wrapper.select("name");
-//        ClassNameVO classNameVO = null;
-//        List<ArticleClass> articleClasses = resourceClassMapper.selectList(wrapper);
-//        for (ArticleClass articleClass : articleClasses) {
-//            classNameVO = new ClassNameVO();
-//            BeanUtils.copyProperties(articleClass,classNameVO);
-//            result.add(classNameVO);
-//        }
-//        return result;
-//    }
+
+    @RequiresAuthentication  //需要登陆认证的接口
+    @ApiOperation(value = "根据id值查询对应的分类名称")
+    @GetMapping("/getClassNameById/{id}")
+    public String getClassNameById(
+            @PathVariable("id") Integer id
+    ){
+        QueryWrapper<ResourceClass> wrapper= new QueryWrapper<>();
+        wrapper.eq("id",id);
+
+        ResourceClass resourceClass = resourceClassMapper.selectOne(wrapper);
+        return resourceClass.getName();
+    }
+
+    @RequiresAuthentication  //需要登陆认证的接口
+    @ApiOperation(value = "获取全部分类列表")
+    @GetMapping("/getAllClassName")
+    public List<ClassNameVO> getAllClassName(){
+        List<ClassNameVO> result = new ArrayList<>();
+
+        QueryWrapper<ResourceClass> wrapper= new QueryWrapper<ResourceClass>();
+        wrapper.select("name");
+        ClassNameVO classNameVO = null;
+        List<ResourceClass> resourceClasses = resourceClassMapper.selectList(wrapper);
+        for (ResourceClass resourceClass : resourceClasses) {
+            classNameVO = new ClassNameVO();
+            BeanUtils.copyProperties(resourceClass,classNameVO);
+            result.add(classNameVO);
+        }
+        return result;
+    }
 }
 
