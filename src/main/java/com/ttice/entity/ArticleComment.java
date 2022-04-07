@@ -21,6 +21,7 @@ public class ArticleComment implements Serializable {
     private Integer userId;
     private String  content;
     private String username;
+    private String email;
 
     /**
      * 添加时间

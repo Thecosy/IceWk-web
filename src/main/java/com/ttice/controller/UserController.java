@@ -94,6 +94,7 @@ public class UserController {
         myMap.put("token", token);
         myMap.put("name", userjudje.getName());
         myMap.put("profile", userjudje.getProfile());
+        myMap.put("email", userjudje.getEmail());
         return Result.succ(200,"成功登陆",myMap);
 //        return Result.succ(200,"成功登陆",token);
     }
