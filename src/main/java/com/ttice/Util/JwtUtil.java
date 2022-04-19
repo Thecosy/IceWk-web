@@ -11,7 +11,7 @@ import java.util.UUID;
 @Component
 public class JwtUtil {
 
-    private static long time = 1000*60*60*24;//失效间隔
+    private static long time = 1000*60*60*24*24;//失效间隔
     private static String signatuer = "admin";
 
     public static String createToken(Integer userId){

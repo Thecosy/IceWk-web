@@ -4,6 +4,7 @@ package com.ttice.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ttice.commin.vo.ResourcePageVO;
 import com.ttice.commin.vo.ResourceVO;
+import com.ttice.entity.Article;
 import com.ttice.entity.Resource;
 import com.ttice.mapper.ResourceMapper;
 import com.ttice.mapper.ResourceVOMapper;
@@ -72,6 +73,19 @@ public class WebResourceController {
     ) {
 
         return resourceVOMapper.selectAll(resourceNum);
+    }
+
+    @ApiOperation(value = "文章查询(预览)")
+    @GetMapping("/findresourcebynum/{content}/{num}")
+    @ApiImplicitParam(name = "content",value = "模糊查询标题",required = true)
+    public List<Resource> FindresourceByNum(
+            @PathVariable("content") String content,
+            @PathVariable("num") String num
+    ) {
+        QueryWrapper<Resource> wrapper = new QueryWrapper<>();
+        wrapper.like("title",content)
+                .last("limit "+num);
+        return resourceMapper.selectList(wrapper);
     }
 
 }
