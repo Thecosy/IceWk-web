@@ -185,7 +185,12 @@ import lombok.EqualsAndHashCode;
      */
       private String thumb;
 
-      /**
+    /**
+     * 轮播图地址
+     */
+    private String carousel;
+
+    /**
      * 生成状态
      */
       private String status;
